@@ -14,9 +14,13 @@ class Book extends Model
         'copies',
         'available_copies',
         'isbn',
+        'synopsis',
+        'cover_image',
         'rack_id',
+        'shelf_number',
+        'call_number',
     ];
-    
+
     /**
      * Determina si el libro está disponible para préstamo
      */
@@ -24,7 +28,19 @@ class Book extends Model
     {
         return $this->available_copies > 0;
     }
-    
+
+    /**
+     * Accesor para obtener las copias disponibles en tiempo real
+     */
+    public function getAvailableCopiesAttribute()
+    {
+        // Si el campo 'copies' no está definido, retorna 0
+        $total = $this->copies ?? 0;
+        // Préstamos activos = no devueltos
+        $activeBorrows = $this->borrows()->whereNull('returned_at')->count();
+        return $total - $activeBorrows;
+    }
+
     /**
      * Actualiza las copias disponibles cuando se presta un libro
      */
@@ -33,13 +49,13 @@ class Book extends Model
         if ($this->available_copies <= 0) {
             throw new \Exception('No hay copias disponibles de este libro');
         }
-        
+
         $this->available_copies -= 1;
         $this->save();
-        
+
         return $this;
     }
-    
+
     /**
      * Actualiza las copias disponibles cuando se devuelve un libro
      */
@@ -49,7 +65,7 @@ class Book extends Model
             $this->available_copies += 1;
             $this->save();
         }
-        
+
         return $this;
     }
 
@@ -68,7 +84,7 @@ class Book extends Model
     {
         return $this->belongsTo(Rack::class);
     }
-    
+
     /**
      * Relación con los préstamos a través de la tabla pivote
      */
@@ -77,7 +93,7 @@ class Book extends Model
         return $this->belongsToMany(Borrow::class, 'borrow_book')
             ->withTimestamps();
     }
-    
+
     /**
      * Relación con los préstamos activos (no devueltos)
      */
