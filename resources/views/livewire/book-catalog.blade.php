@@ -67,8 +67,8 @@
                 <div class="text-muted small">
                     Mostrando {{ $books->count() }} de {{ $books->total() }} libros en catálogo
                 </div>
-                <div class="w-100">
-                    {{ $books->links() }}
+                <div class="w-100 pagination-circle">
+                    {{ $books->onEachSide(1)->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
         </div>

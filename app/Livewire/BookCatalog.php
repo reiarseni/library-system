@@ -10,7 +10,8 @@ use Livewire\WithPagination;
 class BookCatalog extends Component
 {
     use WithPagination;
-
+    
+    // Usar paginación con recarga de página completa para evitar errores de JavaScript
     protected $paginationTheme = 'bootstrap';
     
     public function render()

@@ -8,9 +8,9 @@
                 </li>
             @else
                 <li class="pagina-item">
-                    <button type="button" class="pagina-link" wire:click="previousPage('{{ $paginator->getPageName() }}')" wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
+                    <a class="pagina-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">
                         <i class="fas fa-chevron-left"></i>
-                    </button>
+                    </a>
                 </li>
             @endif
 
@@ -28,7 +28,7 @@
                             <li class="pagina-item active" aria-current="page"><span class="pagina-link">{{ $page }}</span></li>
                         @else
                             <li class="pagina-item">
-                                <button type="button" class="pagina-link" wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')" wire:loading.attr="disabled">{{ $page }}</button>
+                                <a class="pagina-link" href="{{ $paginator->url($page) }}">{{ $page }}</a>
                             </li>
                         @endif
                     @endforeach
@@ -38,9 +38,9 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li class="pagina-item">
-                    <button type="button" class="pagina-link" wire:click="nextPage('{{ $paginator->getPageName() }}')" wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')">
+                    <a class="pagina-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">
                         <i class="fas fa-chevron-right"></i>
-                    </button>
+                    </a>
                 </li>
             @else
                 <li class="pagina-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">

@@ -13,6 +13,7 @@ class BookSearch extends Component
 {
     use WithPagination;
 
+    // Usar paginación con recarga de página completa para evitar errores de JavaScript
     protected $paginationTheme = 'bootstrap';
     
     #[Url(history: true)]
