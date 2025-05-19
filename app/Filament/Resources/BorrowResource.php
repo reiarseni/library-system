@@ -88,7 +88,7 @@ class BorrowResource extends Resource
                     })
                     ->badge()
                     ->color(function ($state) {
-                        if ($state === 'Devuelto') return 'gray';
+                        if ($state === 'Devuelto') return 'success'; // verde
                         if ($state === 'Vencido') return 'danger';
                         if ($state === 'Por vencer') return 'warning';
                         if ($state === 'En curso') return 'success';

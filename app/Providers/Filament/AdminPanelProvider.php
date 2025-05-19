@@ -29,9 +29,13 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->authGuard('web')
             ->spa()
+            ->brandLogo(asset('images/logo.png'))
+            ->brandLogoHeight('3rem')
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->brandName('Sistema de Biblioteca')
+            ->favicon(asset('favicon.png'))
             ->pages([
                 Pages\Dashboard::class,
             ])
