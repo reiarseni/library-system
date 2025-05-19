@@ -169,7 +169,7 @@ server {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /favicon.png { access_log off; log_not_found off; }
     location = /robots.txt  { access_log off; log_not_found off; }
 
     error_page 404 /index.php;
@@ -286,3 +286,12 @@ php artisan migrate:fresh --seed
 ## Licencia
 
 Este proyecto está licenciado bajo [MIT License](LICENSE).
+
+## Referencias
+
+### Instalar composer
+https://www.hostinger.com/es/tutoriales/como-instalar-composer
+
+
+### Instalar Nodejs en Ubuntu
+https://www.hostinger.com/es/tutoriales/instalar-node-js-ubuntu/#Consejos_para_utilizar_Nodejs_en_Ubuntu
