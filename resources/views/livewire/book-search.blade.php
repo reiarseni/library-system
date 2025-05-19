@@ -130,7 +130,7 @@
             <div class="text-muted small">
                 Mostrando {{ $books->count() }} de {{ $books->total() }} libros disponibles
             </div>
-            <div>
+            <div class="w-100">
                 {{ $books->links() }}
             </div>
         </div>

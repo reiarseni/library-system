@@ -38,4 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', function () {
         return view('books.search');
     })->name('books.search');
+    
+    // Catálogo de libros
+    Route::get('/catalog', function () {
+        return view('books.catalog');
+    })->name('books.catalog');
 });

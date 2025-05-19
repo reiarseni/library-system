@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca - Sistema de Gestión</title>
+    <title>Biblioteca - Houston Comunity Investment</title>
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,6 +164,27 @@
             margin: 0;
         }
 
+        /* Estilos para la barra de navegación */
+        .navbar {
+            min-height: 60px; /* Altura reducida de la barra */
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+        }
+
+        .app-title {
+            font-size: 1.40rem; /* Tamaño de fuente reducido */
+            font-weight: 600;
+            color: #333;
+            line-height: 1.2;
+            margin-top: 0.25rem;
+        }
+        .app-subtitle {
+            font-size: 0.8rem; /* Tamaño de fuente reducido */
+            color: #6c757d;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
         /* Estilos para el dropdown de usuario */
         .dropdown-item-form {
             padding: 0;
@@ -189,10 +211,10 @@
         <div class="container">
             <!-- Logo y nombre -->
             <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
-                <i class="fas fa-book-open text-primary me-2 fs-4"></i>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo Biblioteca" style="height: 50px; width: auto; margin-right: 0.5rem;">
                 <div>
                     <h1 class="app-title mb-0">Biblioteca</h1>
-                    <p class="app-subtitle mb-0">Sistema de Gestión de Libros</p>
+                    <p class="app-subtitle mb-0">Houston Comunity Investment</p>
                 </div>
             </a>
 
@@ -202,7 +224,7 @@
             </button>
 
             <!-- Contenido del navbar -->
-            <div class="collapse navbar-collapse" id="navbarMain">
+            <div class="collapse navbar-collapse py-1" id="navbarMain">
                 <!-- Enlaces de navegación -->
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item mx-3">
@@ -215,6 +237,12 @@
                         <a class="nav-link d-flex align-items-center {{ request()->routeIs('books.search') ? 'active fw-bold text-primary' : '' }}" href="{{ route('books.search') }}">
                             <i class="fas fa-search me-2 {{ request()->routeIs('books.search') ? 'text-primary' : 'text-muted' }}"></i>
                             <span>Buscar Libros</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link d-flex align-items-center {{ request()->routeIs('books.catalog') ? 'active fw-bold text-primary' : '' }}" href="{{ route('books.catalog') }}">
+                            <i class="fas fa-book me-2 {{ request()->routeIs('books.catalog') ? 'text-primary' : 'text-muted' }}"></i>
+                            <span>Catálogo</span>
                         </a>
                     </li>
                     @if(Auth::check() && Auth::user()->role === 'admin')
