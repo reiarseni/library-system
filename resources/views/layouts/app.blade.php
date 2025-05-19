@@ -264,6 +264,12 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
+                                <a href="#" class="dropdown-item" id="changePasswordLink">
+                                    <i class="fas fa-key me-2 text-primary"></i>Cambiar contraseña
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
                                 <form method="POST" action="{{ route('logout') }}" class="dropdown-item-form">
                                     @csrf
                                     <button type="submit" class="dropdown-item text-danger">
@@ -293,6 +299,29 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Componente Livewire para cambio de contraseña -->
+    <div>
+        @livewire('change-password')
+    </div>
+
+    <script>
+        // Configurar el enlace para abrir el modal de cambio de contraseña
+        document.addEventListener('livewire:initialized', function () {
+            // Obtener el enlace por su ID
+            const changePasswordLink = document.getElementById('changePasswordLink');
+            
+            // Añadir el evento click al enlace
+            if (changePasswordLink) {
+                changePasswordLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Disparar el evento directamente al componente ChangePassword
+                    Livewire.dispatch('openChangePasswordModal');
+                });
+            }
+        });
+    </script>
+
     @livewireScripts
 </body>
 </html>
