@@ -7,7 +7,7 @@
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
                 @forelse($books as $book)
                     <div class="col mb-3">
-                        <div class="card h-100 library-book-card position-relative">
+                        <div class="card h-100 library-book-card position-relative" wire:click="$dispatch('show-synopsis', { id: {{ $book->id }}, title: '{{ addslashes($book->title) }}', synopsis: '{{ addslashes($book->synopsis) }}' })">
                             <!-- Imagen de portada -->
                             <div class="book-cover-container">
                                 @if($book->cover_image)
@@ -51,15 +51,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Overlay de sinopsis al hacer hover -->
-                            @if($book->synopsis)
-                            <div class="book-synopsis-overlay">
-                                <div class="synopsis-content">
-                                    <h6 class="synopsis-title">Sinopsis</h6>
-                                    <div class="synopsis-text">{{ $book->synopsis }}</div>
-                                </div>
-                            </div>
-                            @endif
+                            <!-- Ya no necesitamos el overlay de sinopsis al hacer hover porque ahora usaremos el modal -->
                         </div>
                     </div>
                 @empty
@@ -207,13 +199,54 @@
             justify-content: center;
             font-size: 0.95rem;
         }
-        .book-card:hover .book-synopsis-overlay {
-            opacity: 1;
-            pointer-events: auto;
+        /* Estilo para indicar que la tarjeta es clickeable */
+        .library-book-card {
+            cursor: pointer;
         }
         .synopsis-text {
             max-height: 140px;
             overflow-y: auto;
         }
     </style>
+    
+    <!-- Modal para mostrar la sinopsis -->
+    <div class="modal fade" id="synopsisModal" tabindex="-1" aria-labelledby="synopsisModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="synopsisModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="synopsisContent" class="p-2"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('livewire:initialized', function() {
+            // Escuchar el evento personalizado para mostrar la sinopsis
+            Livewire.on('show-synopsis', function(data) {
+                const modal = new bootstrap.Modal(document.getElementById('synopsisModal'));
+                const modalTitle = document.getElementById('synopsisModalLabel');
+                const synopsisContent = document.getElementById('synopsisContent');
+                
+                // Establecer el título y contenido del modal
+                modalTitle.textContent = data.title;
+                
+                if (data.synopsis) {
+                    synopsisContent.textContent = data.synopsis;
+                } else {
+                    synopsisContent.textContent = 'No hay sinopsis disponible para este libro.';
+                }
+                
+                // Mostrar el modal
+                modal.show();
+            });
+        });
+    </script>
 </div>
