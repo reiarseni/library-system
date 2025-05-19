@@ -92,7 +92,7 @@ class BookSearch extends Component
         $query->orderByDesc('created_at');
         
         // Seleccionar solo los campos necesarios de la tabla books
-        $query->select(['id', 'title', 'copies', 'available_copies', 'created_at']);
+        $query->select(['id', 'title', 'copies', 'available_copies', 'created_at', 'cover_image', 'synopsis']);
         
         // Ejecutar la consulta y paginar los resultados
         $books = $query->paginate(25);
